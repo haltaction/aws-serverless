@@ -1,0 +1,42 @@
+{
+    "paths": [
+        {
+            "name": "/tasks",
+            "lambdaFunction": "tasksHandler",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/tasks"
+        }
+    ],
+    "resourceName": "api",
+    "apiName": "api",
+    "functionArns": [
+        {
+            "lambdaFunction": "tasksHandler"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-auth-dev-171231-authRole",
+        "unAuthRoleName": "amplify-auth-dev-171231-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "tasksHandler",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
