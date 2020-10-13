@@ -1,27 +1,34 @@
 
-<amplify-authenticator *ngIf="authState !== 'signedin'"></amplify-authenticator>
+<amplify-authenticator *ngIf="authState !== 'signedin'">
+  <amplify-sign-up slot="sign-up" [formFields]="signUpFormFields"></amplify-sign-up>
+</amplify-authenticator>
 
-<div *ngIf="authState === 'signedin' && user" class="App">
+<div *ngIf="authState === 'signedin' && user" class="app">
   <amplify-sign-out></amplify-sign-out>
-  <div>Hello, {{user.username}}</div>
-  <!-- This is where you application template code goes -->
-  <br />
 
-  <span>Tasks</span>
-  <div *ngFor="let task of tasks">
-    <span>{{ task.name }}</span>
-    <button (click)="deleteTask(task.id)">delete</button>
-    <br />
+  <div class="container">
+    <div>Hello, {{user.username}}</div>
+
+    <div *ngIf="isLoading" class="loader lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+
+    <h2>Tasks</h2>
+    <ul class="list-group" *ngFor="let task of tasks">
+      <li class="row task-row">
+        <span class="col col-md-6 list-group-item task">{{ task.name }}</span>
+        <button (click)="deleteTask(task.id)" type="button" class="btn btn-danger col col-md-1">Delete</button>
+      </li>
+    </ul>
+
+    <div class="form-group">
+      <label>
+        A new task
+        <input #taskName class="form-control" type="text" placeholder="new task">
+      </label>
+      <button (click)="addTask(taskName)" type="button" class="btn btn-success">Add task</button>
+    </div>
+
+  <!--  <button (click)="getCredentials()">Get credentials</button>-->
+    <button type="button" class="btn btn-info" (click)="getTasks()">Load tasks</button>
+
   </div>
-
-  <br />
-  <label>
-    A new task
-    <input #taskName type="text">
-  </label>
-  <button (click)="addTask(taskName)">Add task</button>
-
-<!--  <button (click)="getCredentials()">Get credentials</button>-->
-  <br />
-  <button (click)="getTasks()">Get tasks</button>
 </div>
